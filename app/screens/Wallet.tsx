@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import '@walletconnect/react-native-compat';
-import { Web3Modal, useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
 
 interface RouteProps {
   navigation: NavigationProp<any, any>;
@@ -37,6 +37,20 @@ const Wallet = ({ navigation }: RouteProps) => {
       <Button title="Connect Wallet" onPress={handleConnectWallet} />
       <Button title="Open Profile" onPress={() => navigation.navigate('Profile')} />
       <Button title="Log Out" onPress={() => FIREBASE_AUTH.signOut()} />
+
+      <WalletConnectModal
+        projectId="YOUR_WALLETCONNECT_PROJECT_ID"
+        providerMetadata={{
+          name: 'famCoin',
+          description: 'WalletConnect integration',
+          url: 'https://example.com',
+          icons: ['https://avatars.githubusercontent.com/u/37784886'],
+          redirect: {
+            native: 'famcoin://',
+            universal: 'https://example.com/app',
+          },
+        }}
+      />
     </View>
   );
 };

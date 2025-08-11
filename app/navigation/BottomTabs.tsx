@@ -3,16 +3,17 @@ import React, { useRef, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, TouchableOpacity, Animated, StyleSheet, Dimensions } from 'react-native';
 import { BlurView } from 'expo-blur';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import Home from '../screens/Home';
 import Wallet from '../screens/Wallet';
 import Profile from '../screens/Profile';
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
 const TAB_WIDTH = width * 0.9 / 3; // container width is 90% of screen
 
-function CustomTabBar({ state, descriptors, navigation }) {
+function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const indicatorPosition = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -64,8 +65,8 @@ function CustomTabBar({ state, descriptors, navigation }) {
               style={styles.tabButton}
             >
               <Animated.View style={{ transform: [{ scale }] }}>
-                <Icon
-                  name={isFocused ? iconName : `${iconName}-outline`}
+                <Ionicons
+                  name={isFocused ? (iconName as any) : (`${iconName}-outline` as any)}
                   size={28}
                   color={isFocused ? '#00E676' : '#777'}
                 />
